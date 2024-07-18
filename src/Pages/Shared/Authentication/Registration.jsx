@@ -1,12 +1,15 @@
 // src/components/RegistrationForm.jsx
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../../Providers/AuthProvider';
 
 const Registration = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const {createUser} = useContext(AuthContext);
 
-    const onSubmit = (data) => {
-        console.log('Form Data:', data);
+    const onSubmit = async (data) => {
+        createUser(data);
     };
 
     return (

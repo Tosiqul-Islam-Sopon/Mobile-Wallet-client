@@ -8,6 +8,14 @@ import {
 import Root from './Layouts/Root/Root';
 import Authentication from './Pages/Shared/Authentication';
 import Registration from './Pages/Shared/Authentication/Registration';
+import Home from './Pages/Users/Home/Home';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import AuthProvider from './Providers/AuthProvider';
+
+const queryClient = new QueryClient()
 
 
 const router = createBrowserRouter([
@@ -23,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/registration",
         element: <Registration></Registration>
+      },
+      {
+        path: "/home",
+        element: <Home></Home>
       }
     ],
   },
@@ -31,6 +43,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </AuthProvider>
   </React.StrictMode>,
 )
